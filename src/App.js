@@ -8,6 +8,11 @@ function App() {
   const [pokemonList, setPokemonList] = useState([]);
   const [filteredPokemonList, setFilteredPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
+
+  const handlePokemonSelect = (pokemon) => {
+    setSelectedPokemon(pokemon);
+  }
 
   useEffect(() => {
     async function fetchPokemonList() {
