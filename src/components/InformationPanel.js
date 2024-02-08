@@ -10,7 +10,7 @@ function InformationPanel({ selectedPokemon }) {
   return (
     <div style={gradientStyle} className="p-4 min-h-screen">
       <img src={selectedPokemon.sprite} alt={selectedPokemon.name} className="w-40 h-40 mx-auto" />
-      <h2 className="text-2xl text-center mt-2">{selectedPokemon.name}</h2>
+      <h2 className="text-2xl text-center mt-2 uppercase">{selectedPokemon.name}</h2>
     </div>
   );
 }

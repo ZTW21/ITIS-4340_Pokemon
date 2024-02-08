@@ -18,10 +18,10 @@ function App() {
     async function fetchPokemonList() {
       try {
         setLoading(true);
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); // Adjust limit as needed
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
         const data = await response.json();
         setPokemonList(data.results);
-        setFilteredPokemonList(data.results); // Initially, no filtering is applied
+        setFilteredPokemonList(data.results);
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     const filtered = pokemonList.filter(pokemon => {
-      const pokemonId = pokemon.url.split('/').filter(Boolean).pop(); // Extract ID from URL
+      const pokemonId = pokemon.url.split('/').filter(Boolean).pop();
       return pokemon.name.includes(searchQuery.toLowerCase()) || pokemonId.includes(searchQuery);
     });
 
@@ -49,11 +49,11 @@ function App() {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <PokemonList pokemonList={filteredPokemonList} />
+            <PokemonList pokemonList={filteredPokemonList} handlePokemonSelect={handlePokemonSelect} />
           )}
         </div>
         <div className="w-1/3">
-          <InformationPanel />
+          <InformationPanel selectedPokemon={selectedPokemon} />
         </div>
       </div>
     </div>
