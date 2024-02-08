@@ -37,7 +37,7 @@ function App() {
   }, [searchQuery, pokemonList]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: '#d2f2fa' }}>
       <div className="flex">
         <div className="w-2/3">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

@@ -29,7 +29,7 @@ function SearchBar({ setSearchQuery, onSearch }) {
         <img src={`${process.env.PUBLIC_URL}/pokesearch-logo.png`} alt="Poke Search Logo" className="h-12 mr-8" />
         <div className="flex items-center space-x-4 flex-grow relative">
           <input
-            className="border p-4 rounded-full flex-grow"
+            className="border p-4 rounded-full flex-grow bg-[#43a1de] text-white placeholder-white"
             type="text"
             placeholder="Search for a Pokémon"
             value={searchQuery}
@@ -39,7 +39,8 @@ function SearchBar({ setSearchQuery, onSearch }) {
             }}
           />
           <button
-            className="bg-blue-500 text-white rounded-full h-12 w-12 flex items-center justify-center"
+            style={{ backgroundColor: '#fbc4c5', color: '#c63838', boxShadow: '0 6px 10px rgba(0, 0, 0, 0.25)' }}
+            className="bg-blue-500 text-white rounded-full h-12 w-12 flex items-center justify-center font-bold"
             onClick={handleGoClick}
           >
             Go!
