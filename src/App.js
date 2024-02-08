@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
 import SearchBar from './components/SearchBar';
 import PokemonList from './components/PokemonList';
 import InformationPanel from './components/InformationPanel';
@@ -14,7 +13,7 @@ function App() {
     async function fetchPokemonList() {
       try {
         setLoading(true);
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10000'); // Adjust limit as needed
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); // Adjust limit as needed
         const data = await response.json();
         setPokemonList(data.results);
         setFilteredPokemonList(data.results); // Initially, no filtering is applied
@@ -39,7 +38,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <div className="flex">
         <div className="w-2/3">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

@@ -8,18 +8,14 @@ function PokemonList({ pokemonList }) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-4 p-4">
+    <div className="grid grid-cols-3 gap-4 p-4">
       {pokemonList.map((pokemon) => {
         const pokemonId = getIdFromUrl(pokemon.url);
         const spriteUrl = `${process.env.PUBLIC_URL}/sprites/pokemon/${pokemonId}.png`;
 
         return (
-          <div key={pokemonId} className="bg-gray-200 p-4 flex items-center rounded-lg shadow-md">
-            <img src={spriteUrl} alt={pokemon.name} className="w-20 h-20 mr-4" />
-            <div>
-              <h3 className="text-xl font-semibold">{pokemon.name}</h3>
-              <p className="text-sm">ID: {pokemonId}</p>
-            </div>
+          <div key={pokemonId} className="aspect-square bg-gray-200 flex justify-center items-center rounded-lg shadow-md overflow-hidden">
+            <img src={spriteUrl} alt={pokemon.name} className="w-full h-full object-cover" />
           </div>
         );
       })}
