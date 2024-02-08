@@ -14,8 +14,9 @@ function PokemonList({ pokemonList }) {
         const spriteUrl = `${process.env.PUBLIC_URL}/sprites/pokemon/${pokemonId}.png`;
 
         return (
-          <div key={pokemonId} className="aspect-square bg-gray-200 flex justify-center items-center rounded-lg shadow-md overflow-hidden">
-            <img src={spriteUrl} alt={pokemon.name} className="w-full h-full object-cover" />
+          <div key={pokemonId} className="aspect-square bg-gray-200 flex flex-col items-center justify-center rounded-lg shadow-md overflow-hidden">
+            <img src={spriteUrl} alt={pokemon.name} className="w-50 h-50 object-contain" />
+            <p className="text-center mt-1 text-xs">{pokemon.name}</p>
           </div>
         );
       })}
