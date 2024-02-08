@@ -9,10 +9,26 @@ function App() {
   const [filteredPokemonList, setFilteredPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
 
   const handlePokemonSelect = (pokemon) => {
     setSelectedPokemon(pokemon);
-  }
+  };
+
+  const handleScroll = () => {
+    if (window.pageYOffset > 300) {
+      setShowScrollTopButton(true);
+    } else {
+      setShowScrollTopButton(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   useEffect(() => {
     async function fetchPokemonList() {
@@ -30,6 +46,11 @@ function App() {
     }
 
     fetchPokemonList();
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -56,6 +77,21 @@ function App() {
           <InformationPanel selectedPokemon={selectedPokemon} />
         </div>
       </div>
+      {showScrollTopButton && (
+        <button
+          onClick={scrollToTop}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            padding: '10px',
+            fontSize: '16px',
+            zIndex: 1000,
+          }}
+        >
+          Scroll to Top
+        </button>
+      )}
     </div>
   );
 }
