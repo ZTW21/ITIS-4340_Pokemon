@@ -11,6 +11,10 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [showScrollTopButton, setShowScrollTopButton] = useState(false);
 
+  const onSearch = (searchName) => {
+    console.log('Search for:', searchName);
+  }
+
   const handlePokemonSelect = (pokemon) => {
     setSelectedPokemon(pokemon);
   };
@@ -66,7 +70,7 @@ function App() {
     <div className="App" style={{ backgroundColor: '#d2f2fa' }}>
       <div className="flex">
         <div className="w-2/3">
-          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={onSearch} />
           {loading ? (
             <div>Loading...</div>
           ) : (
