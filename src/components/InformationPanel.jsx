@@ -6,7 +6,6 @@ const listClass = 'ml-10 pl-5 border-2 border-slate-200 w-1/3'
 /**@typedef {{front_default: string,front_shiny: string }} SpritesType*/
 /**@typedef {{name: string, weight: string, height: string,habitat: string, abilities:AbilityType[],base_experience: string, moves: {move: InfoType}[],forms: InfoType[], species: InfoType,sprites:SpritesType,location_area_encounters: string }} PokemonInfoType*/
 /**
- *
  * @param {{selectedPokemon:{url: string,name: string,sprite: string }}} param0
  * @returns
  */
@@ -33,15 +32,10 @@ function InformationPanel({ selectedPokemon }) {
 			height: res.height,
 			abilities: res.abilities,
 			base_experience: res.base_experience,
-			/**@type {{move:InfoType}[]}*/
 			moves: res.moves,
-			/**@type {InfoType[]} */
 			forms: res.forms,
-			/**@type {InfoType}*/
 			species: res.species,
-			/**@type {{front_default: string,front_shiny: string }}*/
 			sprites: res.sprites,
-			/**@type {string}*/
 			location_area_encounters: res.location_area_encounters,
 		});
 		setIsLoading(false);
