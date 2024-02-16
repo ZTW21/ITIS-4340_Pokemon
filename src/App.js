@@ -53,6 +53,12 @@ function App() {
 	}, []);
 
 	const setMatchPokemons = (filteredPokemons) => {
+		if (filteredPokemons.length === 0) {
+			setFilteredPokemonList(pokemonList);
+			setSelectedPokemon(null);
+			return;
+		}
+
 		setFilteredPokemonList(filteredPokemons);
 		if (filteredPokemons.length > 0) {
 			setSelectedPokemon(filteredPokemons[0]);

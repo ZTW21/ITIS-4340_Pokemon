@@ -39,6 +39,13 @@ function SearchBar({ pokemonList, setMatchPokemons }) {
 		setMatchPokemons([matches[index]]);
 		setHasSelected(true);
 	};
+
+	const clearSelected = () => {
+		setMatchPokemons([]);
+		setMatches([]);
+		setSearchQueryState("");
+		setHasSelected(false);
+	};
 	return (
 		<div className='flex justify-center my-4'>
 			<div className='flex items-center w-full max-w-3xl px-4'>
@@ -46,6 +53,7 @@ function SearchBar({ pokemonList, setMatchPokemons }) {
 					src={`${process.env.PUBLIC_URL}/pokesearch-logo.png`}
 					alt='Poke Search Logo'
 					className='h-12 mr-8'
+					onClick={clearSelected}
 				/>
 				<div className='flex items-center space-x-4 flex-grow relative'>
 					<input
