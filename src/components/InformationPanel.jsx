@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPokemonHabitat, getPokemonInfoByUrl, getPokemonLocation } from "../server/api";
+import { getImgUrl } from "../until";
 const listClass = 'ml-10 pl-5 border-2 border-slate-200 w-1/3'
 /**@typedef {{name: string, url: string}} InfoType*/
 /**@typedef {{is_hidden: boolean, ability: InfoType}} AbilityType*/
@@ -61,7 +62,7 @@ function InformationPanel({ selectedPokemon }) {
 	}
 	return (
 		<div style={gradientStyle} className='p-4 min-h-screen'>
-			<img src={selectedPokemon.sprite} alt={selectedPokemon.name} className='w-40 h-40 mx-auto' />
+			<img src={getImgUrl(selectedPokemon.url)} alt={selectedPokemon.name} className='w-40 h-40 mx-auto' />
 			<h2 className='text-2xl text-center mt-2 uppercase'>{selectedPokemon.name}</h2>
 			{isLoading || Object.keys(pokemonInfo).length === 0 ? (
 				<h3>Loading....</h3>

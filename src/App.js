@@ -4,16 +4,11 @@ import PokemonList from "./components/PokemonList";
 import InformationPanel from "./components/InformationPanel";
 
 function App() {
-	const [searchQuery, setSearchQuery] = useState("");
 	const [pokemonList, setPokemonList] = useState([]);
 	const [filteredPokemonList, setFilteredPokemonList] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [showScrollTopButton, setShowScrollTopButton] = useState(false);
-
-	const onSearch = (pokemon) => {
-		setSelectedPokemon(pokemon);
-	};
 
 	const handlePokemonSelect = (pokemon) => {
 		setSelectedPokemon(pokemon);
@@ -57,20 +52,17 @@ function App() {
 		};
 	}, []);
 
-	useEffect(() => {
-		const filtered = pokemonList.filter((pokemon) => {
-			const pokemonId = pokemon.url.split("/").filter(Boolean).pop();
-			return pokemon.name.includes(searchQuery.toLowerCase()) || pokemonId.includes(searchQuery);
-		});
-
-		setFilteredPokemonList(filtered);
-	}, [searchQuery, pokemonList]);
-
+	const setMatchPokemons = (filteredPokemons) => {
+		setFilteredPokemonList(filteredPokemons);
+		if (filteredPokemons.length > 0) {
+			setSelectedPokemon(filteredPokemons[0]);
+		}
+	};
 	return (
 		<div className='App' style={{ backgroundColor: "#d2f2fa" }}>
 			<div className='flex'>
 				<div className='w-2/3'>
-					<SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={onSearch} />
+					<SearchBar pokemonList={pokemonList} setMatchPokemons={setMatchPokemons} />
 					{loading ? (
 						<div>Loading...</div>
 					) : (

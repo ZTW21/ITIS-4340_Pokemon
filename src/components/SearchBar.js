@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { getImgUrl } from "../until";
 
-function SearchBar({ setSearchQuery, onSearch }) {
+/**
+ *
+ * @param {{ pokemonList: import("./InformationPanel").InfoType[]}} param0
+ * @returns
+ */
+function SearchBar({ pokemonList, setMatchPokemons }) {
 	const [searchQuery, setSearchQueryState] = useState("");
 	const [matches, setMatches] = useState([]);
 
-	useEffect(() => {
-		const updateMatches = async () => {
-			if (searchQuery.length > 0) {
-				const fetchedMatches = await fetchMatches(searchQuery);
-				setMatches(fetchedMatches.slice(0, 3)); // Take the top 3 matches
-				// select the first one
-				handleGoClick();
-			} else {
-				setMatches([]);
-			}
-		};
+	const updateMatches = async () => {
+		if (searchQuery.length > 0) {
+			const fetchedMatches = fetchMatches(searchQuery, pokemonList);
 
+			setMatches(fetchedMatches);
+			setMatchPokemons(fetchedMatches);
+
+			// select the first one
+			handleGoClick();
+		} else {
+			setMatches([]);
+		}
+	};
+
+	useEffect(() => {
 		updateMatches();
 	}, [searchQuery]);
 
 	const handleGoClick = () => {
 		if (matches.length > 0) {
-			onSearch(matches[0]); // Use the first match's name for the "Go!" action
+			// onSearch(matches[0]); // Use the first match's name for the "Go!" action
 		}
 	};
 
@@ -42,7 +49,6 @@ function SearchBar({ setSearchQuery, onSearch }) {
 						value={searchQuery}
 						onChange={(e) => {
 							setSearchQueryState(e.target.value.trim());
-							setSearchQuery(e.target.value);
 						}}
 					/>
 					<button
@@ -70,20 +76,14 @@ function SearchBar({ setSearchQuery, onSearch }) {
 	);
 }
 
-async function fetchMatches(searchQuery) {
+function fetchMatches(searchQuery, pokemonList) {
 	try {
-		const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`);
-		const data = await response.json();
-
 		// Filter the results based on the search query and return the top 3 matches
-		const filteredMatches = data.results.filter((pokemon) =>
-			pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
-		);
-		return filteredMatches.slice(0, 3).map((pokemon) => ({
-			name: pokemon.name,
-			url: pokemon.url,
-			sprite: getImgUrl(pokemon.url),
-		}));
+		const filteredMatches = pokemonList.filter((pokemon) => {
+			const pokemonId = pokemon.url.split("/").filter(Boolean).pop();
+			return pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) || pokemonId.includes(searchQuery);
+		});
+		return filteredMatches.slice(0, 3);
 	} catch (error) {
 		console.error("Error fetching matches: ", error);
 		return [];
