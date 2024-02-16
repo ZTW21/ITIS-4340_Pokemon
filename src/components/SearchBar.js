@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 /**
- *
  * @param {{ pokemonList: import("./InformationPanel").InfoType[]}} param0
  * @returns
  */
 function SearchBar({ pokemonList, setMatchPokemons }) {
 	const [searchQuery, setSearchQueryState] = useState("");
 	const [matches, setMatches] = useState([]);
+	const [hasSelected, setHasSelected] = useState(false);
 
 	const updateMatches = async () => {
 		if (searchQuery.length > 0) {
@@ -25,14 +25,20 @@ function SearchBar({ pokemonList, setMatchPokemons }) {
 
 	useEffect(() => {
 		updateMatches();
+		setHasSelected(false);
 	}, [searchQuery]);
 
 	const handleGoClick = () => {
 		if (matches.length > 0) {
-			// onSearch(matches[0]); // Use the first match's name for the "Go!" action
+			setMatchPokemons([matches[0]]);
+			setHasSelected(true);
 		}
 	};
 
+	const selectPokemon = (index) => {
+		setMatchPokemons([matches[index]]);
+		setHasSelected(true);
+	};
 	return (
 		<div className='flex justify-center my-4'>
 			<div className='flex items-center w-full max-w-3xl px-4'>
@@ -61,10 +67,13 @@ function SearchBar({ pokemonList, setMatchPokemons }) {
 						onClick={handleGoClick}>
 						Go!
 					</button>
-					{matches.length > 0 && (
+					{matches.length > 0 && !hasSelected && (
 						<div className='absolute top-full mt-1 bg-white border rounded shadow-lg w-full z-10'>
 							{matches.map((match, index) => (
-								<div key={index} className='p-2 hover:bg-gray-100 cursor-pointer'>
+								<div
+									key={index}
+									className='p-2 hover:bg-gray-100 cursor-pointer'
+									onClick={() => selectPokemon(index)}>
 									{match.name}
 								</div>
 							))}

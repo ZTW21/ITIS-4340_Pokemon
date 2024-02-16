@@ -72,19 +72,19 @@ function InformationPanel({ selectedPokemon }) {
 					<div>Height: {pokemonInfo.height}</div>
 					<div>Experience: {pokemonInfo.base_experience}</div>
 					<div>Location: {pokemonInfo.habitat || '...'}</div>
-					<div>Forms: {pokemonInfo.forms.map(item => {
-						return <div className={listClass}>{item.name}</div>
+					<div>Forms: {pokemonInfo.forms.map((item, index) => {
+						return <div key={index} className={listClass}>{item.name}</div>
 					})}</div>
 					<div>
 						Abilities:{" "}
-						{pokemonInfo.abilities.map((item) => {
+						{pokemonInfo.abilities.map((item, index) => {
 							return (
-								<div className={listClass}>{item.ability.name}</div>
+								<div key={index} className={listClass}>{item.ability.name}</div>
 							);
 						})}
 					</div>
-					<div>Moves: {pokemonInfo.moves.slice(0, 5).map(item => {
-						return <div className={listClass}>{item.move.name}</div>
+					<div>Moves: {pokemonInfo.moves.slice(0, 5).map((item, index) => {
+						return <div key={index} className={listClass}>{item.move.name}</div>
 					})}</div>
 					<div></div>
 				</>
